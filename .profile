@@ -18,6 +18,11 @@ fi
 
 # set PATH so it includes user's private bin directories
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
 setxkbmap us -option ctrl:nocaps
+xset r rate 150 64
+
+export EDITOR="vim"
+export VISUAL="$EDITOR"
 
 export PATH="$HOME/.cargo/bin:$PATH"
