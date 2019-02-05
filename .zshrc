@@ -17,6 +17,11 @@ HISTSIZE=2000
 SAVEHIST=5000
 setopt autocd beep notify
 bindkey -v
+
+alias ll="ls -alFh --color=auto"
+alias ls="ls --color=auto"
+source ~/.profile
+
 # End of lines configured by zsh-newuser-install
 
 PROMPT="%n@%m:%d> "
