@@ -45,6 +45,14 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 
-set nu
+" Enable hybrid numbers
+set nu rnu
 set smarttab
+
+syntax on
+set tabstop=2
+set softtabstop=0 expandtab smarttab
+set shiftwidth=2
+
+
 
