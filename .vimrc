@@ -12,6 +12,8 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'NERD_tree-Project'
 
+Plugin 'Valloric/YouCompleteMe'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -44,15 +46,30 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+set colorcolumn=81
+highlight ColorColumn ctermbg=0
+
+command Newt tabnew
+
+set runtimepath^=~/.vim/plugins/swap_lines.vim
 
 " Enable hybrid numbers
 set nu rnu
 set smarttab
 
 syntax on
+"Original tab behavior:
+"set tabstop=2
+"set softtabstop=0 expandtab smarttab
+"set shiftwidth=2
+"Fixed tab behavior:
 set tabstop=2
-set softtabstop=0 expandtab smarttab
+set softtabstop=0 noexpandtab 
+
+"Shiftwidth is the size of an 'indent', measured in spaces. 
 set shiftwidth=2
-
-
+set expandtab
+"set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵,extends:→,precedes:←
+set listchars=tab:>·,trail:␠,nbsp:⎵,extends:→,precedes:←
+set list
 
