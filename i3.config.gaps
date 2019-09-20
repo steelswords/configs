@@ -305,6 +305,9 @@ gaps inner 20
 #Set desktop background (wallpaper)
 exec feh --bg-scale ~/.config/wallpaper
 
+#Allow screenshots
+bindsym --release Shift+Print exec "import ~/screenshot.png && xclip -selection clipboard -target image/png -i < ~/screenshot.png"
+
 #Set lock screen to be Win + L
 bindsym Mod4+l exec i3lock -r 20 -s 100 -f
 
