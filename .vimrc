@@ -73,3 +73,28 @@ set expandtab
 set listchars=tab:>·,trail:␠,nbsp:⎵,extends:→,precedes:←
 set list
 
+set statusline+=%F
+
+"Forces vim to use tags files from parent directories too.
+"<rant> Should be the default, but ok. </rant>
+set tags=tags;
+
+filetype plugin on
+
+"Enable * to highlight search word and define F11 to turn it off
+set hls
+nnoremap <S-F11> <ESC>:set hls! hls?<cr>
+inoremap <S-F11> <C-o>:set hls! hls?<cr>
+vnoremap <S-F11> <ESC>:set hls! hls?<cr> <bar> gv
+
+"Enable sudo-on-the-fly
+command IamtheKING w !sudo tee %
+
+"cmap w!! w !sudo tee %
+
+colorscheme elflord
+
+autocmd FileType xml        setlocal tabstop=4 shiftwidth=4 softtabstop=4
+
+"Press \g to see a git blame of something selected in visual mode
+vmap <Leader>g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
