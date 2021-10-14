@@ -10,9 +10,11 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'dylanaraps/wal.vim'
+
 Plugin 'NERD_tree-Project'
 
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'ycm-core/YouCompleteMe'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -46,6 +48,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+<<<<<<< HEAD
 set colorcolumn=81
 highlight ColorColumn ctermbg=0
 
@@ -53,6 +56,9 @@ command Newt tabnew
 
 set runtimepath^=~/.vim/plugins/swap_lines.vim
 
+=======
+let g:ycm_show_diagnostics_ui = 0
+>>>>>>> 9f80046 (Updates before merging in neovim support)
 " Enable hybrid numbers
 set nu rnu
 set smarttab
