@@ -1,3 +1,6 @@
 [user]
-	email = tristan@tristanandrus.com
-	name = Tristan Andrus
+  email = tristan@tristanandrus.com
+  name = Tristan Andrus
+
+[alias]
+  s = status

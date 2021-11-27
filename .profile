@@ -20,7 +20,7 @@ fi
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 setxkbmap us -option ctrl:nocaps
-xset r rate 150 64
+xset r rate 150 84
 
 export EDITOR="vim"
 export VISUAL="$EDITOR"
