@@ -9,66 +9,63 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+" YouCompleteMe
+Plugin 'https://github.com/ycm-core/YouCompleteMe.git'
+" For PlantUML previewer
+Plugin 'https://github.com/tyru/open-browser.vim.git'
+Plugin 'https://github.com/aklt/plantuml-syntax.git'
+Plugin 'https://github.com/weirongxu/plantuml-previewer.vim.git'
+Plugin 'tomasiser/vim-code-dark'
+Plugin 'derekwyatt/vim-fswitch'
+" For quick comments
+Plugin 'https://github.com/tpope/vim-commentary'
 
-Plugin 'NERD_tree-Project'
+" Telescope is only for neovim, unfortunately.
+if has('nvim')
+  Plugin 'nvim-lua/plenary.nvim'
+  Plugin 'nvim-telescope/telescope.nvim'
+endif
 
-Plugin 'ycm-core/YouCompleteMe'
-" Track the engine.
-"Plugin 'SirVer/ultisnips'
-
-" Snippets are separated from the engine. Add this if you want them:
-"Plugin 'honza/vim-snippets'
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger="<c-i>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
+" UltiSnips
+Plugin 'https://github.com/sirver/UltiSnips'
+Plugin 'majutsushi/tagbar'
+Plugin 'iamcco/markdown-preview.nvim'
+" Run this after installing markdown preview:
+" :source %
+" :PluginInstall
+" :call mkdp#util#install()
 
 
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-"Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
 let g:ycm_show_diagnostics_ui = 0
+set colorcolumn=81
+highlight ColorColumn ctermbg=0
+
+set runtimepath^=~/.vim/plugins/swap_lines.vim
+
 " Enable hybrid numbers
 set nu rnu
 set smarttab
 
 syntax on
+"Original tab behavior:
+"set tabstop=2
+"set softtabstop=0 expandtab smarttab
+"set shiftwidth=2
+"Fixed tab behavior:
 set tabstop=2
-set softtabstop=0 expandtab smarttab
+set softtabstop=0 noexpandtab 
+
+set autoindent
+
+"Shiftwidth is the size of an 'indent', measured in spaces. 
 set shiftwidth=2
 set expandtab
 "set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵,extends:→,precedes:←
@@ -94,9 +91,79 @@ command IamtheKING w !sudo tee %
 
 "cmap w!! w !sudo tee %
 
-colorscheme elflord
+set t_Co=256
+set t_ut=
+colorscheme codedark
 
 autocmd FileType xml        setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
 "Press \g to see a git blame of something selected in visual mode
 vmap <Leader>g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
+
+" YouCompleteMe options
+let g:ycm_auto_hover = ''
+
+" PlantUML Previewer options
+"let g:plantuml_previewer#plantuml_jar_path = '/home/tandrus/Applications/plantuml.jar'
+
+" Enable this to enable mouse scrolling and selecting in tmux
+" Spoiler: Not worth it
+" set mouse=a
+
+" To use: install silversearcher's ag
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" Bind Ctrl-H to switch between header and cpp
+nnoremap <silent> <C-h> :FSHere<CR>
+
+" Bind Ctrl-R to replace the highlighted text in visual mode
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+
+" NeoVim-specific bindings.
+" Telescope bindings
+if has('nvim')
+  nnoremap <leader>ff <cmd>Telescope find_files<cr>
+  nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+  nnoremap <leader>fb <cmd>Telescope buffers<cr>
+  nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+  nnoremap <leader>vg <cmd>Telescope grep_string<cr>
+endif
+
+"UltiSnips bind to c-j
+"let g:UltiSnipsExpandTrigger = "<M-x>"
+let g:UltiSnipsExpandTrigger = "<C-j>"
+"let g:UltiSnipsJumpForwardTrigger = "<M-j>"
+"let g:UltiSnipsJumpBackwardTrigger = "<M-k>"
+
+"""""""""""""" MarkdownPreview configs
+let g:mkdp_auto_close = 1
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 0
+    \ }
+let g:mkdp_filetypes = ['markdown']
+
+"Make the current tab more visible
+highlight TabLineSel ctermfg=Blue

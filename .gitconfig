@@ -4,3 +4,27 @@
 
 [alias]
   s = status
+
+[log]
+	decorate = auto
+[core]
+	excludesfile = /home/tristan/.gitignore
+[alias]
+	s = status
+	l = log
+	v = remote -v
+	d = diff
+
+[merge]
+  tool = meld
+
+[mergetool "meld"]
+  cmd = meld --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output \"$MERGED\" --label \"MERGE (REMOTE BASE MY)\"
+  trustExitCode = false
+
+[mergetool]
+  # Don't ask if we want to skip merge
+  # prompt=false
+  #
+  # Don't create backup *.orig files
+  # keepBackup = false
