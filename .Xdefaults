@@ -8,6 +8,14 @@ URxvt*boldFont: xft:DejaVuSansMono Nerd Font Mono:size=11
 
 !URxvt.letterSpace: -1
 
+! Copy and Paste
+URxvt.perl-ext-common: selection-to-clipboard,default,matcher
+URxvt.clipboard.autocopy: true
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+
+URxvt.url-launcher: /usr/bin/google-chrome-stable
+URxvt.matcher.button: 1
 
 URxvt*scrollBar: false
 
