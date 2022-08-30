@@ -1,0 +1,31 @@
+# TODOs
+# lk
+# lkh
+# lv
+
+# lv - load venv
+alias lv="source ./venv/bin/activate"
+
+# mkvenv - make venv
+alias mvenv="python3 -m venv venv"
+
+function look_in_directory() {
+  searchDirectory="$1"
+  echo $@ | xargs echo
+  rg --color=always -p "$2" "$searchDirectory" | less -RFX
+}
+
+function lk ()
+{
+  searchDirectory="$(pwd)"
+  # If we are in a git repo, search from the repo base
+  if git rev-parse --is-inside-work-tree 1&>2 2> /dev/null
+  then
+    searchDirectory="$(git rev-parse --show-toplevel)"
+  fi
+  look_in_directory "$searchDirectory" "$1"
+}
+
+function lkh() {
+  look_in_directory "$(pwd)" "$1"
+}
