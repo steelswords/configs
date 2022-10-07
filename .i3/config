@@ -30,7 +30,9 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec LIBGL_ALWAYS_SOFTWARE=1 alacritty
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -40,7 +42,7 @@ bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+ bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+j focus left
@@ -300,19 +302,29 @@ mode "$mode_gaps_left" {
 #This disables gaps if there is only one container in the workspace
 #smart_gaps on
 
-gaps inner 20
+gaps inner 5
 
 #Set desktop background (wallpaper)
-exec feh --bg-scale ~/.config/wallpaper
+exec --no-startup-id /usr/bin/feh --bg-scale ~/.config/wallpaper
 
 #Media control
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_09_00.3.analog-stereo +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_09_00.3.analog-stereo -5% #decrease sound volume
-bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute alsa_output.pci-0000_09_00.3.analog-stereo toggle #mute
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5% #increase sound volume
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5% #decrease sound volume
+# bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute alsa_output.pci-0000_00_1f.3.analog-stereo toggle #mute
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute
+bindsym $mod+m exec --no-startup-id /home/tristan/Applications/scripts/adMute.sh
+bindsym $mod+Shift+XF86AudioPlay exec --no-startup-id /home/tristan/Applications/scripts/pinThisSong.sh
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
+bindsym Ctrl+XF86MonBrightnessDown exec light -S 0.5 # Set minimum screen brightness
+bindsym Ctrl+XF86MonBrightnessUp exec light -S 100 # Set full screen brightness
 
 bindsym XF86AudioPlay  exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
@@ -323,7 +335,7 @@ bindsym XF86Mail       exec "/opt/Android Messages/android-messages-desktop"
 bindsym XF86Calculator exec gnome-calculator
 
 #Set lock screen to be Win + L
-bindsym Mod4+l exec i3lock -r 20 -s 100 -f
+bindsym Mod4+l exec i3lock -c 111111
 
 #Allow screenshots
 bindsym --release Shift+Print exec "import ~/screenshot.png && xclip -selection clipboard -target image/png -i < ~/screenshot.png"
