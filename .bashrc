@@ -118,4 +118,5 @@ fi
 
 #export PATH=$PATH:/home/tristan/Programs/wordsall
 export PATH=$PATH:/home/tristan/Programs/
-
+source ~/.config/aliases-and-paths
+. "$HOME/.cargo/env"

@@ -56,6 +56,7 @@ Plugin 'kyazdani42/nvim-tree.lua'
 
 Plugin 'crucerucalin/qml.vim'
 
+Plugin 'https://github.com/github/copilot.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -63,33 +64,6 @@ filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 " Put your non-Plugin stuff after this line
-
-" Setup for nvim-tree
-lua << ENDLUA
--- examples for your init.lua
-
--- empty setup using defaults
-require("nvim-tree").setup()
-
--- OR setup with some options
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
-ENDLUA
 
 nmap <Leader>n <ESC>:NvimTreeToggle<cr>
 
@@ -123,8 +97,8 @@ set autoindent
 "Set tabs=2spaces for Cpp files
 "
 filetype plugin indent on
-autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 expandtab
-autocmd FileType c   setlocal shiftwidth=2 softtabstop=2 expandtab
+"autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 expandtab
+"autocmd FileType c   setlocal shiftwidth=2 softtabstop=2 expandtab
 
 "Shiftwidth is the size of an 'indent', measured in spaces.
 set shiftwidth=4

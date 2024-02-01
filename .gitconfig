@@ -9,6 +9,7 @@
 	decorate = auto
 [core]
 	excludesfile = /home/tristan/.gitignore
+	editor = nvim
 [alias]
 	s = status
 	l = log

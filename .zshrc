@@ -108,24 +108,13 @@ compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=2000
+HISTSIZE=4000
 SAVEHIST=5000
 setopt autocd beep notify
 bindkey -v
 
 source ~/.profile
-
-
-#For PyWal
-# Import colorscheme from 'wal' asynchronously
-# &   # Run the process in the background.
-# ( ) # Hide shell job control messages.
-(cat ~/.cache/wal/sequences &)
-
-# Alternative (blocks terminal for 0-3ms)
-cat ~/.cache/wal/sequences
-
-# To add support for TTYs this line can be optionally added.
-source ~/.cache/wal/colors-tty.sh
+source ~/.config/aliases-and-paths
+source ~/.zsh/zshscripts
 
 alias o="xdg-open"

@@ -7,7 +7,7 @@
 alias lv="source ./venv/bin/activate"
 
 # mkvenv - make venv
-alias mvenv="python3 -m venv venv"
+alias mkenv="python3 -m venv venv"
 
 function look_in_directory() {
   searchDirectory="$1"
@@ -19,7 +19,7 @@ function lk ()
 {
   searchDirectory="$(pwd)"
   # If we are in a git repo, search from the repo base
-  if git rev-parse --is-inside-work-tree 1&>2 2> /dev/null
+  if git rev-parse --is-inside-work-tree 1>&2 2> /dev/null
   then
     searchDirectory="$(git rev-parse --show-toplevel)"
   fi
@@ -28,4 +28,23 @@ function lk ()
 
 function lkh() {
   look_in_directory "$(pwd)" "$1"
+}
+
+function bugme() {
+    bgColor=""
+    if [[ $? -eq 0 ]]
+    then
+        bgColor="green"
+    else
+        bgColor="red"
+    fi
+    xmessage -bg "$bgColor" -default okay "All done!"
+}
+
+function clear() {
+    /usr/bin/clear
+    if [[ -n "$TMUX" ]]
+    then
+        tmux clear-history
+    fi
 }
